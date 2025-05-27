@@ -25,12 +25,15 @@ add_executable(Bloom_Filter main_bloom_filter.cpp)
 target_link_libraries(
         Bloom_Filter
         PRIVATE
-        bloom_filter
-        bloom_filter_builder
-        hasher_md5
-        hasher
         ${OPENSSL_LIBRARIES}
-        "${OPENSSL_ROOT_DIR}/include")
+        "${OPENSSL_ROOT_DIR}/include"
+        hasher
+        hasher_md5
+        hasher_sha256
+        hasher_sha512
+        hasher_adapter
+        bloom_filter
+)
 
 
 

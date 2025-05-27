@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.31)
-project(bloom_filter_builder)
+project(hasher_adapter)
 
 file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS
         include/*.hpp
@@ -11,13 +11,13 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
         src/*.cpp
 )
 
-add_library(bloom_filter_builder ${HEADERS} ${SOURCES})
-target_include_directories(bloom_filter_builder PUBLIC ./include)
+add_library(hasher_adapter ${HEADERS} ${SOURCES})
+target_include_directories(hasher_adapter PUBLIC ./include)
 
 set_target_properties(
-        bloom_filter_builder PROPERTIES
+        hasher_adapter PROPERTIES
         VERSION 1.0
-        DESCRIPTION "bloom_filter_builder library"
+        DESCRIPTION "hasher_adapter library"
         LANGUAGES CXX
         LINKER_LANGUAGE CXX
         CXX_STANDARD 20

@@ -25,5 +25,5 @@ set_target_properties(
         CXX_STANDARD_REQUIRED ON
         CXX_EXTENSIONS OFF)
 
-add_subdirectory(builder)
+add_subdirectory(hasher_adapter)
 add_subdirectory(hasher)

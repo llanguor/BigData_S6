@@ -32,7 +32,7 @@ int md5_mod_pow2(const std::array<unsigned char, 16>& hash, int n) {
 int main() {
     std::string input = "hello world";
 
-    bloom_filter<hasher_md5> bf;
+    //bloom_filter<hasher_md5> bf;
 
     return 0;
 }
