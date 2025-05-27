@@ -4,6 +4,13 @@ project(BigData_S6)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(OPENSSL_ROOT_DIR "C:/Program Files/OpenSSL-Win64")
+include_directories("${OPENSSL_ROOT_DIR}/include")
+find_library(OPENSSL_CRYPTO_LIBRARY libcrypto PATHS "${OPENSSL_ROOT_DIR}/lib/VC/x64/MDd" NO_DEFAULT_PATH)
+find_library(OPENSSL_SSL_LIBRARY libssl PATHS "${OPENSSL_ROOT_DIR}/lib/VC/x64/MDd" NO_DEFAULT_PATH)
+set(OPENSSL_LIBRARIES ${OPENSSL_SSL_LIBRARY} ${OPENSSL_CRYPTO_LIBRARY})
+
+
 add_subdirectory(associative_container)
 add_executable(B_Tree main_b_tree.cpp)
 target_link_libraries(
@@ -20,6 +27,10 @@ target_link_libraries(
         PRIVATE
         bloom_filter
         bloom_filter_builder
+        hasher_md5
         hasher
-        hasher_md5)
+        ${OPENSSL_LIBRARIES}
+        "${OPENSSL_ROOT_DIR}/include")
+
+
 

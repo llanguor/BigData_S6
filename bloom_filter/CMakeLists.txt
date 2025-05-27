@@ -13,11 +13,12 @@ file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
 
 add_library(bloom_filter ${HEADERS} ${SOURCES})
 target_include_directories(bloom_filter PUBLIC ./include)
+target_link_libraries(bloom_filter PUBLIC hasher)
 
 set_target_properties(
         bloom_filter PROPERTIES
         VERSION 1.0
-        DESCRIPTION "associative container interface library"
+        DESCRIPTION "bloom_filter interface library"
         LANGUAGES CXX
         LINKER_LANGUAGE CXX
         CXX_STANDARD 20

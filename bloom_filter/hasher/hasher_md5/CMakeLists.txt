@@ -7,12 +7,10 @@ file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS
         include/*.tpp
 )
 
-file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
-        src/*.cpp
-)
 
-add_library(hasher_md5 ${HEADERS} ${SOURCES})
+add_library(hasher_md5 ${HEADERS})
 target_include_directories(hasher_md5 PUBLIC ./include)
+target_link_libraries(hasher_md5 PUBLIC hasher)
 
 set_target_properties(
         hasher_md5 PROPERTIES

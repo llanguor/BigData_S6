@@ -1,6 +1,6 @@
 #pragma once
 
-class bloom_filter_builder
+class bloom_filter_builder final
 {
 
 };
