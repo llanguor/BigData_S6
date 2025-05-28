@@ -6,17 +6,17 @@
 
 template <typename datatype>
 class hasher_sha512 final:
-    public hasher<datatype>
+    public hasher_bytes<datatype>
 {
 public:
 
-    hasher_sha512(): hasher<datatype>(SHA512_DIGEST_LENGTH)
+    hasher_sha512(): hasher_bytes<datatype>(SHA512_DIGEST_LENGTH)
     {
     }
 
 private:
 
-    unsigned char* get_hash_raw(const void* data, size_t size) override
+    unsigned char* get_hash_code_from_raw(const void* data, const size_t size) override
     {
         SHA512(
             static_cast<const unsigned char*>(data),

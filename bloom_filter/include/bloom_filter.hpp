@@ -8,7 +8,7 @@
 #include <vector>
 
 #include "hasher.hpp"
-#include "../hasher_adapter/include/hasher_adapter.hpp"
+#include "hasher_numberic.hpp"
 
 
 template<typename datatype>
@@ -19,12 +19,12 @@ private:
 
    unsigned long long _size;
     std::unique_ptr<bool[]> _bits;
-    std::vector<hasher_adapter<datatype>> _hashes;
+    std::vector<hasher_numeric<datatype> *> _hashes;
 
 public:
 
     explicit bloom_filter(
-        std::vector<hasher_adapter<datatype>> & hashes,
+        std::vector<hasher_numeric<datatype> *> & hashes,
         const unsigned long long & size):
         _size(size),
         _bits(std::make_unique<bool[]>(size)),
@@ -36,29 +36,29 @@ public:
 
     void append(datatype const & value)
     {
-        auto result = _hashes.at(0).get_hash_code(value, _size);
+        auto result = _hashes.at(0)->get_hash_code(value);
         _bits[result] = true;
 
         for (int i = 1; i < _hashes.size(); ++i)
         {
-            result = _hashes.at(i).get_hash_code(result, _size);;
+            result = _hashes.at(i)->get_hash_code(result);;
             _bits[result] = true;
         }
     }
 
     bool find(datatype const & value)
     {
-        bool is_value_exists = true;
-
-        auto result = _hashes.at(0).get_hash_code(value, _size);
-        is_value_exists = is_value_exists && _bits[result];
+        auto result = _hashes.at(0)->get_hash_code(value);
 
         for (int i = 1; i < _hashes.size(); ++i)
         {
-            result = _hashes.at(i).get_hash_code(result, _size);;
-            is_value_exists = is_value_exists && _bits[result];
+            result = _hashes.at(i)->get_hash_code(result);;
+            if (!_bits[result])
+            {
+                return false;
+            }
         }
 
-        return is_value_exists;
+        return true;
     }
 };

@@ -4,20 +4,21 @@
 template <typename datatype>
 class hasher
 {
-private:
-
-    size_t const _hash_size;
 
 protected:
 
-    std::shared_ptr<unsigned char[]> _bufer = nullptr;
+    size_t const _hash_size;
 
 public:
 
-    explicit hasher(const size_t hash_size):
+    explicit hasher(
+        size_t const hash_size):
         _hash_size(hash_size)
     {
-        _bufer = std::make_shared<unsigned char[]>(_hash_size);
+        if (_hash_size==0 || _hash_size % 8 != 0)
+        {
+            throw std::invalid_argument("Hash size must be a multiple of 2 and more than zero");
+        }
     }
 
 public:
@@ -25,22 +26,6 @@ public:
     [[nodiscard]] size_t get_hash_size() const
     {
         return _hash_size;
-    }
-
-protected:
-
-    virtual unsigned char* get_hash_raw(void const * data, size_t size) = 0;
-
-public:
-
-    virtual unsigned char* get_hash_code(datatype const & input)
-    {
-        return get_hash_raw(input.data(), input.size());
-    }
-
-    virtual unsigned char* get_hash_code(unsigned long long const & input)
-    {
-        return get_hash_raw(&input, sizeof(input));
     }
 
 public:
