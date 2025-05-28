@@ -1,16 +1,16 @@
 #pragma once
 #include <string>
 #include <array>
-#include <openssl/md5.h>
+#include <openssl/sha.h>
 #include "hasher.hpp"
 
 
-class hasher_md5 final:
+class hasher_sha256 final:
     public hasher
 {
 public:
 
-    hasher_md5(): hasher(MD5_DIGEST_LENGTH)
+    hasher_sha256(): hasher(SHA256_DIGEST_LENGTH)
     {
     }
 
@@ -18,7 +18,7 @@ public:
 
     unsigned char * get_hash_code(std::string const &input) override
     {
-        MD5(reinterpret_cast<const unsigned char*>(
+        SHA256(reinterpret_cast<const unsigned char*>(
             input.data()),
             input.size(),
             _bufer.get());

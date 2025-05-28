@@ -5,18 +5,24 @@
 #include "hasher.hpp"
 
 
-class hasher_sha512:
-    public hasher_template<std::string, SHA512_DIGEST_LENGTH>
+class hasher_sha512 final:
+    public hasher
 {
-    std::array<unsigned char, SHA512_DIGEST_LENGTH> get_hash_code(std::string const &input) override
-    {
-        std::array<unsigned char, SHA512_DIGEST_LENGTH> hash{};
+public:
 
+    hasher_sha512(): hasher(SHA512_DIGEST_LENGTH)
+    {
+    }
+
+public:
+
+    unsigned char * get_hash_code(std::string const &input) override
+    {
         SHA512(reinterpret_cast<const unsigned char*>(
             input.data()),
             input.size(),
-            hash.data());
+            _bufer.get());
 
-        return hash;
+        return _bufer.get();
     }
 };

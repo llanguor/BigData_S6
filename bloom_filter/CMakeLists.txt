@@ -7,11 +7,7 @@ file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS
         include/*.tpp
 )
 
-file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
-        src/*.cpp
-)
-
-add_library(bloom_filter ${HEADERS} ${SOURCES})
+add_library(bloom_filter ${HEADERS})
 target_include_directories(bloom_filter PUBLIC ./include)
 target_link_libraries(bloom_filter PUBLIC hasher)
 

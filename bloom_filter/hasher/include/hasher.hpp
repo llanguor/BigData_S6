@@ -1,40 +1,27 @@
 #pragma once
-#include <array>
+
 
 class hasher
 {
-public:
-
-    [[nodiscard]] virtual std::type_info const & get_type_info() const = 0;
-
-    [[nodiscard]] virtual size_t get_hash_size() const = 0;
-
-public:
-
-    virtual ~hasher() = default;
-
-};
-
-
-
-template<
-    typename datatype, size_t type_hash_size>
-class hasher_template : hasher
-{
-
 private:
 
-    using _type = datatype;
-    const size_t _hash_size = type_hash_size;
+    size_t const _hash_size;
+
+protected:
+
+    std::shared_ptr<unsigned char[]> _bufer = nullptr;
 
 public:
 
-    [[nodiscard]] std::type_info const & get_type_info() const override
+    explicit hasher(const size_t hash_size):
+        _hash_size(hash_size)
     {
-        return typeid(_type);
+        _bufer = std::make_shared<unsigned char[]>(_hash_size);
     }
 
-    [[nodiscard]] size_t get_hash_size() const override
+public:
+
+    [[nodiscard]] size_t get_hash_size() const
     {
         return _hash_size;
     }
@@ -42,6 +29,9 @@ public:
 public:
 
     //unsigned char for storage bytes
-    virtual std::array<unsigned char, type_hash_size> get_hash_code(datatype const & input) = 0;
+    virtual unsigned char * get_hash_code(std::string const & input) = 0;
 
+public:
+
+    virtual ~hasher() = default;
 };
