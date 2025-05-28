@@ -26,12 +26,21 @@ public:
         return _hash_size;
     }
 
+protected:
+
+    virtual unsigned char* get_hash_raw(const void* data, size_t size) = 0;
+
 public:
 
-    //unsigned char for storage bytes
-    virtual unsigned char * get_hash_code(std::string const & input) = 0;
+    virtual unsigned char* get_hash_code(const std::string& input)
+    {
+        return get_hash_raw(input.data(), input.size());
+    }
 
-    virtual unsigned char * get_hash_code(unsigned long long const & input) = 0;
+    virtual unsigned char* get_hash_code(const unsigned long long& input)
+    {
+        return get_hash_raw(&input, sizeof(input));
+    }
 
 public:
 

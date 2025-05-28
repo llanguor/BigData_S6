@@ -14,24 +14,16 @@ public:
     {
     }
 
-public:
+private:
 
-    unsigned char * get_hash_code(std::string const &input) override
+    unsigned char* get_hash_raw(const void* data, size_t size) override
     {
-        SHA256(reinterpret_cast<const unsigned char*>(
-            input.data()),
-            input.size(),
-            _bufer.get());
-
-        return _bufer.get();
+        SHA256(
+            static_cast<const unsigned char*>(data),
+            size,
+            this->_bufer.get()
+        );
+        return this->_bufer.get();
     }
 
-    unsigned char * get_hash_code(unsigned long long const &input) override
-    {
-        SHA256(reinterpret_cast<const unsigned char*>(&input),
-           sizeof(unsigned long long),
-           _bufer.get());
-
-        return _bufer.get();
-    }
 };
