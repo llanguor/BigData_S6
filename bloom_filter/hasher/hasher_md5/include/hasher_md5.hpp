@@ -5,7 +5,7 @@
 #include "hasher.hpp"
 
 class hasher_md5 :
-    public hasher<std::string, MD5_DIGEST_LENGTH>
+    public hasher_template<std::string, MD5_DIGEST_LENGTH>
 {
     std::array<unsigned char, MD5_DIGEST_LENGTH> get_hash_code(std::string const &input) override
     {

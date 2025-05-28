@@ -7,11 +7,7 @@ file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS
         include/*.tpp
 )
 
-file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
-        src/*.cpp
-)
-
-add_library(hasher_adapter ${HEADERS} ${SOURCES})
+add_library(hasher_adapter ${HEADERS})
 target_include_directories(hasher_adapter PUBLIC ./include)
 
 set_target_properties(

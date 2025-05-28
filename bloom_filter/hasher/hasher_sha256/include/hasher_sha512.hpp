@@ -6,7 +6,7 @@
 
 
 class hasher_sha512:
-    public hasher<std::string, SHA256_DIGEST_LENGTH>
+    public hasher_template<std::string, SHA256_DIGEST_LENGTH>
 {
     std::array<unsigned char, SHA256_DIGEST_LENGTH> get_hash_code(std::string const &input) override
     {
