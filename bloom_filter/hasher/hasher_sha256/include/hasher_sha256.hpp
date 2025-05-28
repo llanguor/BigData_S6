@@ -4,13 +4,13 @@
 #include <openssl/sha.h>
 #include "hasher.hpp"
 
-
+template <typename datatype>
 class hasher_sha256 final:
-    public hasher
+    public hasher<datatype>
 {
 public:
 
-    hasher_sha256(): hasher(SHA256_DIGEST_LENGTH)
+    hasher_sha256(): hasher<datatype>(SHA256_DIGEST_LENGTH)
     {
     }
 

@@ -2,19 +2,19 @@
 #include <array>
 #include "hasher.hpp"
 
-
+template <typename datatype>
 class hasher_adapter final
 {
 private:
 
-    std::shared_ptr<hasher> _hasher;
+    std::shared_ptr<hasher<datatype>> _hasher;
 
     size_t _hash_size;
 
 
 public:
 
-    explicit hasher_adapter(const std::shared_ptr<hasher> &hasher):
+    explicit hasher_adapter(const std::shared_ptr<hasher<datatype>> &hasher):
         _hasher(hasher),
         _hash_size(_hasher->get_hash_size())
     {
@@ -36,13 +36,21 @@ public:
 
 
     unsigned long long get_hash_code(
-        std::string const & data,
+        datatype const & data,
         unsigned long long const n)
     {
         return get_hash_code_from_data(data, n);
     }
 
 private:
+
+    template<typename input_type>
+    unsigned long long get_hash_code_from_data(input_type const& data, unsigned long long const n)
+    {
+        auto hash = _hasher->get_hash_code(data);
+        auto hash_combined = get_hash_combined_to_long(hash, n);
+        return get_remainder(hash_combined, n);
+    }
 
     unsigned long long get_remainder(
      unsigned long long hash_combined,
@@ -75,14 +83,5 @@ private:
         }
 
         return hash_combined;
-    }
-
-
-    template<typename input_type>
-    unsigned long long get_hash_code_from_data(input_type const& data, unsigned long long const n)
-    {
-        auto hash = _hasher->get_hash_code(data);
-        auto hash_combined = get_hash_combined_to_long(hash, n);
-        return get_remainder(hash_combined, n);
     }
 };

@@ -1,6 +1,7 @@
 #pragma once
 
 
+template <typename datatype>
 class hasher
 {
 private:
@@ -28,16 +29,16 @@ public:
 
 protected:
 
-    virtual unsigned char* get_hash_raw(const void* data, size_t size) = 0;
+    virtual unsigned char* get_hash_raw(void const * data, size_t size) = 0;
 
 public:
 
-    virtual unsigned char* get_hash_code(const std::string& input)
+    virtual unsigned char* get_hash_code(datatype const & input)
     {
         return get_hash_raw(input.data(), input.size());
     }
 
-    virtual unsigned char* get_hash_code(const unsigned long long& input)
+    virtual unsigned char* get_hash_code(unsigned long long const & input)
     {
         return get_hash_raw(&input, sizeof(input));
     }

@@ -4,13 +4,13 @@
 #include <openssl/md5.h>
 #include "hasher.hpp"
 
-
+template <typename datatype>
 class hasher_md5 final:
-    public hasher
+    public hasher<datatype>
 {
 public:
 
-    hasher_md5(): hasher(MD5_DIGEST_LENGTH)
+    hasher_md5(): hasher<datatype>(MD5_DIGEST_LENGTH)
     {
     }
 

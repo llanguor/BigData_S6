@@ -4,12 +4,13 @@
 #include <openssl/sha.h>
 #include "hasher.hpp"
 
+template <typename datatype>
 class hasher_sha512 final:
-    public hasher
+    public hasher<datatype>
 {
 public:
 
-    hasher_sha512(): hasher(SHA512_DIGEST_LENGTH)
+    hasher_sha512(): hasher<datatype>(SHA512_DIGEST_LENGTH)
     {
     }
 

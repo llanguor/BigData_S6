@@ -10,6 +10,8 @@
 #include "hasher.hpp"
 #include "../hasher_adapter/include/hasher_adapter.hpp"
 
+
+template<typename datatype>
 class bloom_filter final
 {
 
@@ -17,12 +19,12 @@ private:
 
    unsigned long long _size;
     std::unique_ptr<bool[]> _bits;
-    std::vector<hasher_adapter> _hashes;
+    std::vector<hasher_adapter<datatype>> _hashes;
 
 public:
 
     explicit bloom_filter(
-        std::vector<hasher_adapter> & hashes,
+        std::vector<hasher_adapter<datatype>> & hashes,
         const unsigned long long & size):
         _size(size),
         _bits(std::make_unique<bool[]>(size)),
@@ -32,7 +34,7 @@ public:
 
 public:
 
-    void append(std::string const & value)
+    void append(datatype const & value)
     {
         auto result = _hashes.at(0).get_hash_code(value, _size);
         _bits[result] = true;
@@ -44,7 +46,7 @@ public:
         }
     }
 
-    bool find(std::string const & value)
+    bool find(datatype const & value)
     {
         bool is_value_exists = true;
 
