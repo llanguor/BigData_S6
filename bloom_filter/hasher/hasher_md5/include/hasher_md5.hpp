@@ -25,4 +25,13 @@ public:
 
         return _bufer.get();
     }
+
+    unsigned char * get_hash_code(unsigned long long const &input) override
+    {
+        MD5(reinterpret_cast<const unsigned char*>(&input),
+           sizeof(unsigned long long),
+           _bufer.get());
+
+        return _bufer.get();
+    }
 };

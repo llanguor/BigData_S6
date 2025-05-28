@@ -31,6 +31,8 @@ public:
     //unsigned char for storage bytes
     virtual unsigned char * get_hash_code(std::string const & input) = 0;
 
+    virtual unsigned char * get_hash_code(unsigned long long const & input) = 0;
+
 public:
 
     virtual ~hasher() = default;
