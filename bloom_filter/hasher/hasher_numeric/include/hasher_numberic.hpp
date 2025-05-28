@@ -1,5 +1,5 @@
 #pragma once
-#include "hasher.hpp"
+#include "../../include/hasher.hpp"
 #include <memory>
 
 template <typename datatype>

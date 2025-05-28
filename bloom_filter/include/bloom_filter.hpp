@@ -8,7 +8,7 @@
 #include <vector>
 
 #include "hasher.hpp"
-#include "hasher_numberic.hpp"
+#include "../hasher/hasher_numeric/include/hasher_numberic.hpp"
 
 
 template<typename datatype>

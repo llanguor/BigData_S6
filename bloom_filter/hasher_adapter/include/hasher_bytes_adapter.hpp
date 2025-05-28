@@ -1,8 +1,8 @@
 #pragma once
 #include <array>
 #include "hasher.hpp"
-#include "hasher_bytes.hpp"
-#include "hasher_numberic.hpp"
+#include "../../hasher/hasher_bytes/include/hasher_bytes.hpp"
+#include "../../hasher/hasher_numeric/include/hasher_numberic.hpp"
 
 template <typename datatype>
 class hasher_bytes_adapter final: public hasher_numeric<datatype>

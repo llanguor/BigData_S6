@@ -28,6 +28,8 @@ target_link_libraries(
         ${OPENSSL_LIBRARIES}
         "${OPENSSL_ROOT_DIR}/include"
         hasher
+        hasher_bytes
+        hasher_numeric
         hasher_md5
         hasher_sha256
         hasher_sha512
