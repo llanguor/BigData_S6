@@ -17,9 +17,9 @@ int main() {
     auto sha256 = std::make_shared<hasher_sha256<std::string>>();
     auto sha512 = std::make_shared<hasher_sha512<std::string>>();
 
-    hasher_bytes_adapter<std::string> adapter_md5(md5, 8);
-    hasher_bytes_adapter<std::string> adapter_sha256(sha256, 8);
-    hasher_bytes_adapter<std::string> adapter_sha512(sha512, 8);
+    hasher_bytes_adapter<std::string> adapter_md5(md5);
+    hasher_bytes_adapter<std::string> adapter_sha256(sha256);
+    hasher_bytes_adapter<std::string> adapter_sha512(sha512);
 
     std::vector<hasher_numeric<std::string> *> vector;
     vector.push_back(&adapter_md5);
@@ -27,7 +27,7 @@ int main() {
     vector.push_back(&adapter_sha512);
 
 
-    bloom_filter<std::string> bf (vector, 8);
+    bloom_filter<std::string> bf (vector, 32);
     bf.append("asd");
     bf.append("test");
 

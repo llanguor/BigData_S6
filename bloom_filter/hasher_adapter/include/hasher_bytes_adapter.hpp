@@ -11,16 +11,12 @@ private:
 
     std::shared_ptr<hasher_bytes<datatype>> _hasher;
 
-    unsigned long long _remainder_degree;
-
 public:
 
     explicit hasher_bytes_adapter(
-        const std::shared_ptr<hasher_bytes<datatype>> &hasher,
-        unsigned long long const & remainder_degree):
+        const std::shared_ptr<hasher_bytes<datatype>> &hasher):
          hasher_numeric<datatype>(hasher->get_hash_size()),
-         _hasher(hasher),
-         _remainder_degree(remainder_degree)
+         _hasher(hasher)
     {
     }
 
@@ -29,30 +25,7 @@ public:
     unsigned long long get_hash_code_from_raw(void const * data, size_t size) override
     {
         auto hash = _hasher->get_hash_code_from_raw(data, size);
-        auto hash_combined = get_hash_combined_to_long(hash);
-        return get_remainder(hash_combined);
-    }
 
-
-private:
-
-    [[nodiscard]] unsigned long long get_remainder(
-     unsigned long long hash_combined) const
-    {
-        if (_remainder_degree <= 0 ||
-            (_remainder_degree & (_remainder_degree - 1)) != 0) //n<=0 and n=2^x
-        {
-            throw std::invalid_argument("the number must be of the form 2^n and more than 0");
-        }
-
-        unsigned long long const shift = std::countr_zero(_remainder_degree); //count zero on right side == log2n
-        unsigned long long const mask = (1ULL << shift) - 1;
-        return hash_combined & mask;
-    }
-
-    unsigned long long get_hash_combined_to_long(
-     unsigned char const * hash) const
-    {
         unsigned long long hash_combined = 0;
 
         for (int i = 0; i < _hasher->get_hash_size(); i+=8)
