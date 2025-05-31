@@ -27,7 +27,6 @@ target_link_libraries(
         bloom_filter
 )
 
-add_subdirectory(hash_table)
 add_executable(Hash_Table main_hash_table.cpp)
 target_link_libraries(
         Hash_Table

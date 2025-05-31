@@ -1,22 +1,13 @@
 #pragma once
-#include <algorithm>
-#include "key_value_pair.hpp"
 
-template<
+template <
     typename tkey,
     typename tvalue>
-class associative_container
+class collision_strategy
 {
-
 public:
 
-    using key_value_pair = key_value_pair<tkey, tvalue>;
-
-    using key_value_ptr_pairs = key_value_ptr_pair<tkey, tvalue>;
-
-public:
-
-    virtual ~associative_container() noexcept = default;
+    virtual ~collision_strategy() noexcept = default;
 
 public:
 

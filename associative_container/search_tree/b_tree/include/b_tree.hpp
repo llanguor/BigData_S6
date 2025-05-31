@@ -59,11 +59,11 @@ public:
 private:
 
     node * _root;
-    size_t _elements_count{};
-    bool _is_upsert_allow{};
+    size_t _elements_count = 0;
+    bool _is_upsert_allow = true;
     std::stack<std::pair<node**,int>> _stack;
 
-    size_t _degree{};
+    size_t _degree;
     std::function<int(tkey const &, tkey const &)> _comparer;
 
 

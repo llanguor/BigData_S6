@@ -11,6 +11,10 @@ class search_tree:
 
 public:
 
+    [[nodiscard]] virtual size_t elements_count() const = 0;
+
+public:
+
     virtual std::vector<typename associative_container<tkey, tvalue>::key_value_pair> obtain_between(
         tkey const &lower_bound,
         tkey const &upper_bound,

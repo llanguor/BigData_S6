@@ -21,3 +21,4 @@ set_target_properties(
         CXX_EXTENSIONS OFF)
 
 add_subdirectory(search_tree)
+add_subdirectory(hash_table)

@@ -21,9 +21,9 @@ int main() {
     hash_provider_bytes_adapter<std::string> adapter_sha512(sha512);
 
     std::vector<hash_provider_numeric<std::string> *> vector;
-    vector.push_back(&adapter_md5);
-    vector.push_back(&adapter_sha256);
-    vector.push_back(&adapter_sha512);
+    vector.emplace_back(&adapter_md5);
+    vector.emplace_back(&adapter_sha256);
+    vector.emplace_back(&adapter_sha512);
 
 
     bloom_filter<std::string> bf (vector, 32);
