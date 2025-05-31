@@ -1,21 +1,21 @@
 #pragma once
 #include <array>
-#include "hasher.hpp"
-#include "../../hasher/hasher_bytes/include/hasher_bytes.hpp"
-#include "../../hasher/hasher_numeric/include/hasher_numberic.hpp"
+#include "hash_provider.hpp"
+#include "hash_provider_bytes.hpp"
+#include "hash_provider_numeric.hpp"
 
 template <typename datatype>
-class hasher_bytes_adapter final: public hasher_numeric<datatype>
+class hash_provider_bytes_adapter final: public hash_provider_numeric<datatype>
 {
 private:
 
-    std::shared_ptr<hasher_bytes<datatype>> _hasher;
+    std::shared_ptr<hash_provider_bytes<datatype>> _hasher;
 
 public:
 
-    explicit hasher_bytes_adapter(
-        const std::shared_ptr<hasher_bytes<datatype>> &hasher):
-         hasher_numeric<datatype>(hasher->get_hash_size()),
+    explicit hash_provider_bytes_adapter(
+        const std::shared_ptr<hash_provider_bytes<datatype>> &hasher):
+         hash_provider_numeric<datatype>(hasher->get_hash_size()),
          _hasher(hasher)
     {
     }

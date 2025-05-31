@@ -10,14 +10,13 @@ find_library(OPENSSL_CRYPTO_LIBRARY libcrypto PATHS "${OPENSSL_ROOT_DIR}/lib/VC/
 find_library(OPENSSL_SSL_LIBRARY libssl PATHS "${OPENSSL_ROOT_DIR}/lib/VC/x64/MDd" NO_DEFAULT_PATH)
 set(OPENSSL_LIBRARIES ${OPENSSL_SSL_LIBRARY} ${OPENSSL_CRYPTO_LIBRARY})
 
+add_subdirectory(hash_provider)
 
 add_subdirectory(associative_container)
 add_executable(B_Tree main_b_tree.cpp)
 target_link_libraries(
         B_Tree
         PRIVATE
-        associative_container
-        search_tree
         b_tree)
 
 add_subdirectory(bloom_filter)
@@ -25,15 +24,6 @@ add_executable(Bloom_Filter main_bloom_filter.cpp)
 target_link_libraries(
         Bloom_Filter
         PRIVATE
-        ${OPENSSL_LIBRARIES}
-        "${OPENSSL_ROOT_DIR}/include"
-        hasher
-        hasher_bytes
-        hasher_numeric
-        hasher_md5
-        hasher_sha256
-        hasher_sha512
-        hasher_adapter
         bloom_filter
 )
 

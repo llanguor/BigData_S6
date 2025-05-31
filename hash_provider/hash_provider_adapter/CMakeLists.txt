@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.31)
-project(hasher_numeric)
+project(hash_provider_adapter)
 
 file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS
         include/*.hpp
@@ -7,14 +7,13 @@ file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS
         include/*.tpp
 )
 
-add_library(hasher_numeric ${HEADERS})
-target_include_directories(hasher_numeric PUBLIC ./include)
-target_link_libraries(hasher_numeric PUBLIC hasher)
+add_library(hash_provider_adapter ${HEADERS})
+target_include_directories(hash_provider_adapter PUBLIC include)
 
 set_target_properties(
-        hasher_numeric PROPERTIES
+        hash_provider_adapter PROPERTIES
         VERSION 1.0
-        DESCRIPTION "hasher_numeric interface library"
+        DESCRIPTION "hash_provider_adapter library"
         LANGUAGES CXX
         LINKER_LANGUAGE CXX
         CXX_STANDARD 20

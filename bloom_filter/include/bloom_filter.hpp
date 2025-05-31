@@ -7,8 +7,8 @@
 #include <string>
 #include <vector>
 
-#include "hasher.hpp"
-#include "../hasher/hasher_numeric/include/hasher_numberic.hpp"
+#include "hash_provider.hpp"
+#include "hash_provider_numeric.hpp"
 
 
 template<typename datatype>
@@ -19,12 +19,12 @@ private:
 
    unsigned long long _size;
     std::unique_ptr<bool[]> _bits;
-    std::vector<hasher_numeric<datatype> *> _hashes;
+    std::vector<hash_provider_numeric<datatype> *> _hashes;
 
 public:
 
     explicit bloom_filter(
-        std::vector<hasher_numeric<datatype> *> & hashes,
+        std::vector<hash_provider_numeric<datatype> *> & hashes,
         const unsigned long long & size):
         _size(size),
         _bits(std::make_unique<bool[]>(size)),

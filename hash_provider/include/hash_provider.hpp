@@ -2,7 +2,7 @@
 
 
 template <typename datatype>
-class hasher
+class hash_provider
 {
 
 protected:
@@ -11,7 +11,7 @@ protected:
 
 public:
 
-    explicit hasher(
+    explicit hash_provider(
         size_t const hash_size):
         _hash_size(hash_size)
     {
@@ -30,5 +30,5 @@ public:
 
 public:
 
-    virtual ~hasher() = default;
+    virtual ~hash_provider() = default;
 };

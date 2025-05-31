@@ -1,16 +1,16 @@
 #pragma once
 #include <string>
 #include <array>
-#include <openssl/sha.h>
-#include "hasher.hpp"
+#include <openssl/md5.h>
+#include "hash_provider.hpp"
 
 template <typename datatype>
-class hasher_sha512 final:
-    public hasher_bytes<datatype>
+class hash_provider_md5 final:
+    public hash_provider_bytes<datatype>
 {
 public:
 
-    hasher_sha512(): hasher_bytes<datatype>(SHA512_DIGEST_LENGTH)
+    hash_provider_md5(): hash_provider_bytes<datatype>(MD5_DIGEST_LENGTH)
     {
     }
 
@@ -18,7 +18,7 @@ private:
 
     unsigned char* get_hash_code_from_raw(const void* data, const size_t size) override
     {
-        SHA512(
+        MD5(
             static_cast<const unsigned char*>(data),
             size,
             this->_bufer.get()

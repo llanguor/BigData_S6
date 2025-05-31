@@ -2,15 +2,15 @@
 #include <string>
 #include <array>
 #include <openssl/sha.h>
-#include "hasher.hpp"
+#include "hash_provider.hpp"
 
 template <typename datatype>
-class hasher_sha256 final:
-    public hasher_bytes<datatype>
+class hash_provider_sha256 final:
+    public hash_provider_bytes<datatype>
 {
 public:
 
-    hasher_sha256(): hasher_bytes<datatype>(SHA256_DIGEST_LENGTH)
+    hash_provider_sha256(): hash_provider_bytes<datatype>(SHA256_DIGEST_LENGTH)
     {
     }
 

@@ -9,6 +9,12 @@ file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS
 
 add_library(b_tree ${HEADERS})
 target_include_directories(b_tree PUBLIC ./include)
+target_link_libraries(
+        b_tree
+        PUBLIC
+        associative_container
+        search_tree
+)
 
 set_target_properties(
         b_tree PROPERTIES

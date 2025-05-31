@@ -1,9 +1,9 @@
 #pragma once
-#include "../../include/hasher.hpp"
+#include "hash_provider.hpp"
 #include <memory>
 
 template <typename datatype>
-class hasher_bytes : public hasher<datatype>
+class hash_provider_bytes : public hash_provider<datatype>
 {
 
 protected:
@@ -12,7 +12,7 @@ protected:
 
 public:
 
-    explicit hasher_bytes(const size_t hash_size): hasher<datatype>(hash_size)
+    explicit hash_provider_bytes(const size_t hash_size): hash_provider<datatype>(hash_size)
     {
         _bufer = std::make_shared<unsigned char[]>(hash_size);
     }

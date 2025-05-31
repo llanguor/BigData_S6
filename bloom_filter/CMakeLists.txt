@@ -9,7 +9,19 @@ file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS
 
 add_library(bloom_filter ${HEADERS})
 target_include_directories(bloom_filter PUBLIC ./include)
-target_link_libraries(bloom_filter PUBLIC hasher)
+target_link_libraries(
+        bloom_filter
+        PUBLIC
+        ${OPENSSL_LIBRARIES}
+        "${OPENSSL_ROOT_DIR}/include"
+        hash_provider
+        hash_provider_bytes
+        hash_provider_numeric
+        hash_provider_adapter
+        hash_provider_md5
+        hash_provider_sha256
+        hash_provider_sha512
+)
 
 set_target_properties(
         bloom_filter PROPERTIES
@@ -20,6 +32,3 @@ set_target_properties(
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED ON
         CXX_EXTENSIONS OFF)
-
-add_subdirectory(hasher_adapter)
-add_subdirectory(hasher)

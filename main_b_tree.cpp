@@ -26,7 +26,7 @@ int main()
     tree->insert(7, 7);
     tree->insert(8, 8);
 
-    std::cout << "COUT" << tree->elements_count() << std::endl;
+    std::cout << "Items count: " << tree->elements_count() << std::endl;
     for (auto it = tree->begin(); it != tree->end(); ++it)
     {
         auto [key, value, v1, v2] = *it;

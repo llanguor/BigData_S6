@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.31)
-project(hasher_md5)
+project(hash_provider_numeric)
 
 file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS
         include/*.hpp
@@ -7,15 +7,14 @@ file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS
         include/*.tpp
 )
 
-
-add_library(hasher_md5 ${HEADERS})
-target_include_directories(hasher_md5 PUBLIC include)
-target_link_libraries(hasher_sha512 PUBLIC hasher_bytes)
+add_library(hash_provider_numeric ${HEADERS})
+target_include_directories(hash_provider_numeric PUBLIC include)
+target_link_libraries(hash_provider_numeric PUBLIC hash_provider)
 
 set_target_properties(
-        hasher_md5 PROPERTIES
+        hash_provider_numeric PROPERTIES
         VERSION 1.0
-        DESCRIPTION "hasher_md5 library"
+        DESCRIPTION "hash_provider_numeric interface library"
         LANGUAGES CXX
         LINKER_LANGUAGE CXX
         CXX_STANDARD 20

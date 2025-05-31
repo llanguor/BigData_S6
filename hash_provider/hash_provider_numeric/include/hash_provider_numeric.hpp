@@ -1,13 +1,13 @@
 #pragma once
-#include "../../include/hasher.hpp"
+#include "hash_provider.hpp"
 #include <memory>
 
 template <typename datatype>
-class hasher_numeric : public hasher<datatype>
+class hash_provider_numeric : public hash_provider<datatype>
 {
 public:
 
-    explicit hasher_numeric(const size_t hash_size): hasher<datatype>(hash_size)
+    explicit hash_provider_numeric(const size_t hash_size): hash_provider<datatype>(hash_size)
     {
     }
 
