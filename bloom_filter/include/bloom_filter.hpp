@@ -17,7 +17,7 @@ class bloom_filter final
 
 private:
 
-   unsigned long long _size;
+    unsigned long long _size_in_bits;
     std::unique_ptr<bool[]> _bits;
     std::vector<hash_provider_numeric<datatype> *> _hashes;
 
@@ -26,8 +26,8 @@ public:
     explicit bloom_filter(
         std::vector<hash_provider_numeric<datatype> *> & hashes,
         const unsigned long long & size):
-        _size(size),
-        _bits(std::make_unique<bool[]>(size)),
+        _size_in_bits(size * 8),
+        _bits(std::make_unique<bool[]>(_size_in_bits)),
         _hashes(std::move(hashes))
         {
         }
@@ -74,13 +74,7 @@ private:
     [[nodiscard]] unsigned long long get_remainder(
      unsigned long long hash_combined) const
     {
-        if (_size <= 0 ||
-            (_size & (_size - 1)) != 0) //n<=0 and n=2^x
-        {
-            throw std::invalid_argument("the number must be of the form 2^n and more than 0");
-        }
-
-        unsigned long long const shift = std::countr_zero(_size); //count zero on right side == log2n
+        unsigned long long const shift = std::countr_zero(_size_in_bits); //count zero on right side == log2n
         unsigned long long const mask = (1ULL << shift) - 1;
         return hash_combined & mask;
     }

@@ -26,7 +26,7 @@ int main() {
     vector.emplace_back(&adapter_sha512);
 
 
-    bloom_filter<std::string> bf (vector, 32);
+    bloom_filter<std::string> bf (vector, 5); //5 bytes (in bytes like OpenSSL and other libs)
     bf.append("asd");
     bf.append("test");
 

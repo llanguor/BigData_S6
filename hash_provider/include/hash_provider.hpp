@@ -15,10 +15,6 @@ public:
         size_t const hash_size):
         _hash_size(hash_size)
     {
-        if (_hash_size==0 || _hash_size % 8 != 0)
-        {
-            throw std::invalid_argument("Hash size must be a multiple of 2 and more than zero");
-        }
     }
 
 public:

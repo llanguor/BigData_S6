@@ -30,12 +30,12 @@ public:
 
         for (int i = 0; i < _hasher->get_hash_size(); i+=8)
         {
-            unsigned long long hash_8_bits = 0;
+            unsigned long long hash_8_bytes = 0;
             for (int j = i; j < i + 8; ++j)
             {
-                hash_8_bits = (hash_8_bits << 8) | hash[j];
+                hash_8_bytes = (hash_8_bytes << 8) | hash[j];
             }
-            hash_combined ^= hash_8_bits;
+            hash_combined ^= hash_8_bytes;
         }
 
         return hash_combined;
