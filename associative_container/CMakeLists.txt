@@ -7,7 +7,7 @@ file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS
         include/*.tpp
 )
 
-add_library(associative_container include/associative_container.hpp)
+add_library(associative_container ${HEADERS})
 target_include_directories(associative_container PUBLIC ./include)
 
 set_target_properties(

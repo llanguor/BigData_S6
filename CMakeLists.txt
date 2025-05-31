@@ -31,4 +31,5 @@ add_executable(Hash_Table main_hash_table.cpp)
 target_link_libraries(
         Hash_Table
         PRIVATE
-        hash_table)
+        hash_table
+)

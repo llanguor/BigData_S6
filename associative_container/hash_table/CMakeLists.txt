@@ -8,11 +8,13 @@ file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS
 )
 
 add_library(hash_table ${HEADERS})
-target_include_directories(hash_table PUBLIC include)
-target_link_libraries(
-        hash_table
+target_include_directories(hash_table PUBLIC ./include)
+target_link_libraries(hash_table
         PUBLIC
-        associative_container)
+        associative_container
+        hash_provider
+        hash_provider_numeric
+)
 
 set_target_properties(
         hash_table PROPERTIES

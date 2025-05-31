@@ -3,10 +3,10 @@
 #include <functional>
 #include <memory>
 #include <vector>
-#include "associative_container.hpp"
-#include "collision_strategy.hpp"
+#include "../../associative_container/include/associative_container.hpp"
 #include "collision_chaining_strategy.hpp"
 #include "collision_multihash_strategy.hpp"
+#include "collision_strategy.hpp"
 
 template <
     typename tkey,
@@ -27,14 +27,34 @@ private:
 
 public:
 
-    static hash_table сreate_with_chaining()
+    explicit hash_table(
+        hash_provider_numeric<tkey> * hash_provider,
+           const unsigned long long hash_size)
     {
-        return hash_table(std::make_unique<collision_chaining_strategy<tkey, tvalue>>());
+        _collision_strategy = std::make_unique<collision_chaining_strategy<tkey, tvalue>>(
+            hash_provider,
+            hash_size);
     }
 
-    static hash_table create_with_multihash(std::vector<std::function<size_t(const tkey&)>> hashes)
+
+public:
+
+    static hash_table сreate_with_chaining(
+        hash_provider_numeric<tkey> * hash_provider,
+        const unsigned long long hash_size)
     {
-        return hash_table(std::make_unique<collision_multihash_strategy<tkey, tvalue>>(std::move(hashes)));
+        return hash_table(std::make_unique<collision_chaining_strategy<tkey, tvalue>>(
+            hash_provider,
+            hash_size));
+    }
+
+    static hash_table create_with_multihash(
+        std::vector<hash_provider_numeric<tkey> *> & hash_providers,
+        const unsigned long long hash_size)
+    {
+        return hash_table(std::make_unique<collision_multihash_strategy<tkey, tvalue>>(
+            std::move(hash_providers),
+            hash_size));
     }
 
     static hash_table create_with_cuckoo(size_t num_hashes, size_t max_displacements)
@@ -44,41 +64,41 @@ public:
 
 public:
 
-    virtual void insert(
+    void insert(
         tkey const &key,
         tvalue const &value) override
     {
         _collision_strategy->insert(key, value);
     }
 
-    virtual void insert(
+    void insert(
         tkey const &key,
         tvalue &&value) override
     {
         _collision_strategy->insert(key, value);
     }
 
-    virtual void update(
+    void update(
         tkey const &key,
         tvalue const &value) override
     {
         _collision_strategy->update(key, value);
     }
 
-    virtual void update(
+    void update(
         tkey const &key,
         tvalue &&value) override
     {
         _collision_strategy->update(key, value);
     }
 
-    virtual tvalue &obtain(
+    tvalue &obtain(
         tkey const &key) override
     {
         return _collision_strategy->obtain(key);
     }
 
-    virtual tvalue dispose(
+    tvalue dispose(
         tkey const &key) override
     {
         return _collision_strategy->dispose(key);

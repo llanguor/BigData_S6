@@ -7,7 +7,7 @@ file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS
         include/*.tpp
 )
 
-add_library(search_tree include/search_tree.hpp)
+add_library(search_tree ${HEADERS})
 target_include_directories(search_tree PUBLIC ./include)
 target_link_libraries(search_tree PUBLIC associative_container)
 

@@ -5,6 +5,32 @@ template <
     typename tvalue>
 class collision_strategy
 {
+private:
+
+    unsigned long long _size_in_bits;
+
+public:
+
+    [[nodiscard]] unsigned long long get_hash_size() const
+    {
+        return _size_in_bits;
+    }
+
+protected:
+
+    void set_hash_size(const unsigned long long new_size)
+    {
+        _size_in_bits = new_size;
+    }
+
+public:
+
+    explicit collision_strategy(
+        unsigned long long const size_in_bits):
+    _size_in_bits(size_in_bits)
+    {
+    }
+
 public:
 
     virtual ~collision_strategy() noexcept = default;
