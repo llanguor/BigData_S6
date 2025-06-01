@@ -27,8 +27,8 @@ public:
         std::function<bool(tkey const &, tkey const &)> & is_equals,
         const unsigned long long hash_size):
         collision_strategy_concrete<tkey, tvalue>(hash_size),
-        _is_equals(is_equals),
-        _hash_provider(&hash_provider)
+        _hash_provider(&hash_provider),
+        _is_equals(is_equals)
         {
             _bits.reset(new std::vector<key_value_pair<tkey, tvalue>>[hash_size]());
         }

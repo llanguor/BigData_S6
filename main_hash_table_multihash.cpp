@@ -25,14 +25,16 @@ int main()
     auto table = hash_table<std::string, int>::create_with_multihash(
         std::move(vector),
         is_equals,
-        32
+        1
         );
 
     table.insert("key1", 10);
+    std::cout << table.obtain("key1") << std::endl;
+
     table.insert("key2", 20);
     table.insert("key3", 30);
-    std::cout << table.obtain("key1") << std::endl;
     std::cout << table.obtain("key2") << std::endl;
+    std::cout << table.obtain("key3") << std::endl;
 
     table.dispose("key3");
     try

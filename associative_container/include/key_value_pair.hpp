@@ -4,7 +4,7 @@
 template<
     typename tkey,
     typename tvalue>
-struct key_value_pair final
+struct key_value_pair
 {
 
 public:

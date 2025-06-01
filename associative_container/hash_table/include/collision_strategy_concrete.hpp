@@ -39,10 +39,14 @@ protected:
     [[nodiscard]] unsigned long long get_remainder(
      unsigned long long hash) const
     {
+        /*
         unsigned long long const shift = std::countr_zero(
-            collision_strategy<tkey, tvalue>::get_hash_size()); //count zero on right side == log2n
+            collision_strategy<tkey, tvalue>::get_hash_size());
         unsigned long long const mask = (1ULL << shift) - 1;
         return hash & mask;
+        */
+
+        return hash % collision_strategy<tkey, tvalue>::get_hash_size(); //because the number does not have to be a power of two
     }
 
     virtual unsigned long long
