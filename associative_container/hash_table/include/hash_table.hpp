@@ -20,44 +20,58 @@ private:
 private:
 
     explicit hash_table(
-        std::unique_ptr<collision_strategy<tkey, tvalue>> & collision_strategy):
-        _collision_strategy(std::move(collision_strategy))
+        std::unique_ptr<collision_strategy<tkey, tvalue>> && strategy)
     {
+        _collision_strategy = std::move(strategy);
     }
+
 
 public:
 
     explicit hash_table(
-        hash_provider_numeric<tkey> * hash_provider,
-           const unsigned long long hash_size)
+        hash_provider_numeric<tkey> & hash_provider,
+        std::function<bool(tkey const &, tkey const &)> is_equals,
+        const unsigned long long hash_size)
     {
         _collision_strategy = std::make_unique<collision_chaining_strategy<tkey, tvalue>>(
             hash_provider,
-            hash_size);
+            is_equals,
+            hash_size
+        );
     }
-
 
 public:
 
     static hash_table сreate_with_chaining(
-        hash_provider_numeric<tkey> * hash_provider,
+        hash_provider_numeric<tkey> && hash_provider,
+        std::function<bool(tkey const &, tkey const &)> is_equals,
         const unsigned long long hash_size)
     {
-        return hash_table(std::make_unique<collision_chaining_strategy<tkey, tvalue>>(
+        return hash_table<tkey, tvalue>(
+            std::make_unique<collision_chaining_strategy<tkey, tvalue>>(
             hash_provider,
-            hash_size));
+            is_equals,
+            hash_size
+        ));
     }
 
     static hash_table create_with_multihash(
-        std::vector<hash_provider_numeric<tkey> *> & hash_providers,
+        std::vector<hash_provider_numeric<tkey> *> && hash_providers,
+        std::function<bool(tkey const &, tkey const &)> is_equals,
         const unsigned long long hash_size)
     {
-        return hash_table(std::make_unique<collision_multihash_strategy<tkey, tvalue>>(
-            std::move(hash_providers),
-            hash_size));
+        return hash_table<tkey, tvalue>(
+            std::make_unique<collision_multihash_strategy<tkey, tvalue>>(
+            hash_providers,
+            is_equals,
+            hash_size
+        ));
     }
 
-    static hash_table create_with_cuckoo(size_t num_hashes, size_t max_displacements)
+    static hash_table create_with_cuckoo(
+        std::vector<hash_provider_numeric<tkey> *> && hash_providers,
+        std::function<bool(tkey const &, tkey const &)> is_equals,
+        const unsigned long long hash_size)
     {
         throw std::runtime_error("Not implemented");
     }
@@ -78,20 +92,6 @@ public:
         _collision_strategy->insert(key, value);
     }
 
-    void update(
-        tkey const &key,
-        tvalue const &value) override
-    {
-        _collision_strategy->update(key, value);
-    }
-
-    void update(
-        tkey const &key,
-        tvalue &&value) override
-    {
-        _collision_strategy->update(key, value);
-    }
-
     tvalue &obtain(
         tkey const &key) override
     {
@@ -102,5 +102,21 @@ public:
         tkey const &key) override
     {
         return _collision_strategy->dispose(key);
+    }
+
+private:
+
+    void update(
+        tkey const &key,
+        tvalue const &value) override
+    {
+        throw std::logic_error("Update is not supported");
+    }
+
+    void update(
+        tkey const &key,
+        tvalue &&value) override
+    {
+        throw std::logic_error("Update is not supported");
     }
 };

@@ -27,9 +27,16 @@ target_link_libraries(
         bloom_filter
 )
 
-add_executable(Hash_Table main_hash_table.cpp)
+add_executable(Hash_Table_Chaining main_hash_table_chaining.cpp)
 target_link_libraries(
-        Hash_Table
+        Hash_Table_Chaining
+        PRIVATE
+        hash_table
+)
+
+add_executable(Hash_Table_Multihash main_hash_table_multihash.cpp)
+target_link_libraries(
+        Hash_Table_Multihash
         PRIVATE
         hash_table
 )

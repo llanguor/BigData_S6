@@ -26,10 +26,14 @@ public:
     explicit bloom_filter(
         std::vector<hash_provider_numeric<datatype> *> & hashes,
         const unsigned long long & size):
-        _size_in_bits(size * 8),
+        _size_in_bits(size),
         _bits(std::make_unique<bool[]>(_size_in_bits)),
         _hashes(std::move(hashes))
         {
+            if (!is_power_of_two(size))
+            {
+                throw std::invalid_argument("Hash size must be a multiple of 2 and more than zero");
+            }
         }
 
 public:
@@ -77,6 +81,11 @@ private:
         unsigned long long const shift = std::countr_zero(_size_in_bits); //count zero on right side == log2n
         unsigned long long const mask = (1ULL << shift) - 1;
         return hash_combined & mask;
+    }
+
+    bool is_power_of_two(unsigned int n)
+    {
+        return n != 0 && (n & (n - 1)) == 0;
     }
 
 };

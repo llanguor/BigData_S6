@@ -11,9 +11,11 @@ public:
     {
     }
 
-public:
+protected:
 
     virtual unsigned long long get_hash_code_from_raw(void const * data, size_t size) = 0;
+
+public:
 
     virtual unsigned long long get_hash_code(datatype const & input)
     {

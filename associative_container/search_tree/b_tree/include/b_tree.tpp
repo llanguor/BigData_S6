@@ -9,12 +9,10 @@
 template<typename tkey, typename tvalue>
 b_tree<tkey, tvalue>::b_tree(
     const size_t t,
-    std::function<int(tkey const &, tkey const &)> comparer,
-    const bool allow_upsert):
+    std::function<int(tkey const &, tkey const &)> comparer):
     _root(nullptr),
     _elements_count(0),
-    _comparer(comparer),
-    _is_upsert_allow(allow_upsert)
+    _comparer(comparer)
 {
     if (t<2)
     {
@@ -46,7 +44,7 @@ void b_tree<tkey, tvalue>::insert(tkey const &key, tvalue const &value)
 template<typename tkey, typename tvalue>
 void b_tree<tkey, tvalue>::insert(tkey const &key, tvalue &&value)
 {
-    upsert(key, std::move(value), _is_upsert_allow);
+    upsert(key, std::move(value));
 }
 
 template<typename tkey, typename tvalue>
@@ -58,7 +56,7 @@ void b_tree<tkey, tvalue>::update(tkey const &key, tvalue const &value)
 template<typename tkey, typename tvalue>
 void b_tree<tkey, tvalue>::update(tkey const &key, tvalue &&value)
 {
-    upsert(key, std::move(value), false);
+    upsert(key, std::move(value), true);
 }
 
 
@@ -465,7 +463,7 @@ template<typename tkey, typename tvalue>
 void b_tree<tkey, tvalue>::upsert(
     tkey const &key,
     tvalue &&value,
-    bool update_allow)
+    bool is_only_update_operation)
 {
     //if tree is empty
     if (_root == nullptr)
@@ -483,16 +481,12 @@ void b_tree<tkey, tvalue>::upsert(
     //if key already exists
     if (_stack.top().second >= 0)
     {
-        if (update_allow)
-        {
-            (*_stack.top().first)->items[_stack.top().second].value = std::move(value);
-            return;
-        }
-        else
-        {
-            throw std::runtime_error("upsert operation: key "+ std::to_string(key) +" already exists");
-        }
-
+        (*_stack.top().first)->items[_stack.top().second].value = std::move(value);
+        return;
+    }
+    else if (is_only_update_operation)
+    {
+        throw std::runtime_error("upsert operation: key "+ std::to_string(key) +" already exists");
     }
 
     //if key not exists
@@ -834,7 +828,6 @@ template<typename tkey, typename tvalue>
     void b_tree<tkey, tvalue>::move_from(b_tree&& other) noexcept
 {
     _degree = other._degree;
-    _is_upsert_allow = other._is_upsert_allow;
     _elements_count = other._elements_count;
     _comparer = std::move(other._comparer);
     _root = std::move(other._root);

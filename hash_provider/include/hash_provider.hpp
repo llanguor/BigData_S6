@@ -15,6 +15,10 @@ public:
         size_t const hash_size):
         _hash_size(hash_size)
     {
+        if (!is_power_of_two(hash_size))
+        {
+            throw std::invalid_argument("Hash size must be a multiple of 2 and more than zero");
+        }
     }
 
 public:
@@ -27,4 +31,11 @@ public:
 public:
 
     virtual ~hash_provider() = default;
+
+private:
+
+    bool is_power_of_two(unsigned int n)
+    {
+        return n != 0 && (n & (n - 1)) == 0;
+    }
 };

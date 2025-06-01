@@ -60,7 +60,6 @@ private:
 
     node * _root;
     size_t _elements_count = 0;
-    bool _is_upsert_allow = true;
     std::stack<std::pair<node**,int>> _stack;
 
     size_t _degree;
@@ -78,8 +77,7 @@ public:
 
     explicit b_tree(
         size_t t,
-        std::function<int(tkey const &, tkey const &)> comparer,
-        bool allow_upsert = true);
+        std::function<int(tkey const &, tkey const &)> comparer);
 
 private:
 
@@ -96,7 +94,7 @@ private:
     void upsert(
         tkey const &key,
         tvalue &&value,
-        bool update_allow);
+        bool is_only_update_operation = false);
 
     void insert_left(
         tkey &insert_key,
