@@ -14,7 +14,7 @@ private:
 public:
 
     explicit hash_provider_bytes_adapter(
-        const std::shared_ptr<hash_provider_bytes<datatype>> &hasher):
+        const std::shared_ptr<hash_provider_bytes<datatype>> &&hasher):
          hash_provider_numeric<datatype>(hasher->get_hash_size()),
          _hash_provider(hasher)
     {

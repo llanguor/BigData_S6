@@ -3,8 +3,12 @@
 
 int compare_func(int const & s1, int const & s2)
 {
-    if (s1<s2) return -1;
-    if (s2<s1) return 1;
+    if (s1 < s2)
+        return -1;
+
+    if (s2 < s1)
+        return 1;
+
     return 0;
 }
 
@@ -34,31 +38,13 @@ int main()
     }
 
 
-
-    std::cout<< tree->dispose(7);
-    std::cout<< tree->dispose(14);
-    std::cout<< tree->dispose(15);
-    std::cout<< tree->dispose(20);
-    std::cout<< tree->dispose(24);
-    std::cout<< tree->dispose(25);
-
-    //  std::cout<< tree->dispose(12);
-
-    //  std::cout<< tree->dispose(8);
-
-    //std::cout<< tree->dispose(10);
-    /*
-    auto pairs = tree->obtain_between(
-        10,
-        24,
-        true,
-        true);
-
-    for (auto p: pairs)
-    {
-        std::cout<< "[" << p.key << "] = " << p.value << "\n";
-    }
-    */
+    std::cout<< "Dispose output:" <<std::endl;
+    std::cout<< tree->dispose(7) << std::endl;
+    std::cout<< tree->dispose(14) << std::endl;
+    std::cout<< tree->dispose(15) << std::endl;
+    std::cout<< tree->dispose(20) << std::endl;
+    std::cout<< tree->dispose(24) << std::endl;
+    std::cout<< tree->dispose(25) << std::endl;
 
     delete tree;
 

@@ -16,8 +16,6 @@ int main()
 
     hash_provider_bytes_adapter<std::string> adapter_sha256(std::make_shared<hash_provider_sha256<std::string>>());
 
-   // auto table = hash_table<std::string, int>(std::move(adapter_sha256), is_equals, 32 );
-
     auto table = hash_table<std::string, int>::сreate_with_chaining(
         std::move(adapter_sha256),
         is_equals,

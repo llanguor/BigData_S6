@@ -8,6 +8,8 @@
 #include "collision_multihash_strategy.hpp"
 #include "collision_strategy.hpp"
 
+//TODO: mutex
+
 template <
     typename tkey,
     typename tvalue>

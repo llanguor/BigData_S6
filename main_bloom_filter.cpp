@@ -22,11 +22,15 @@ int main()
 
 
     bloom_filter<std::string> bf (vector, 32);
-    bf.append("asd");
-    bf.append("test");
+    bf.append("test_key_1");
+    bf.append("key_test_2");
+    bf.append("3_test_key");
 
+    std::cout << bf.find("test_key_1") << std::endl;
+    std::cout << bf.find("key_test_2") << std::endl;
+    std::cout << bf.find("3_test_key") << std::endl;
+    std::cout << bf.find("test1") << std::endl;
+    std::cout << bf.find("test2") << std::endl;
     std::cout << bf.find("asd") << std::endl;
-    std::cout << bf.find("test") << std::endl;
-    std::cout << bf.find("qwerty") << std::endl;
     return 0;
 }
