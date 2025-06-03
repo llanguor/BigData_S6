@@ -5,6 +5,7 @@
 #include <vector>
 #include "../../associative_container/include/associative_container.hpp"
 #include "collision_chaining_strategy.hpp"
+#include "collision_cuckoo_strategy.hpp"
 #include "collision_multihash_strategy.hpp"
 #include "collision_strategy.hpp"
 
@@ -71,11 +72,18 @@ public:
     }
 
     static hash_table create_with_cuckoo(
-        std::vector<hash_provider_numeric<tkey> *> && hash_providers,
+        hash_provider_numeric<tkey> && hash_provider_1,
+        hash_provider_numeric<tkey> && hash_provider_2,
         std::function<bool(tkey const &, tkey const &)> is_equals,
         const unsigned long long hash_size)
     {
-        throw std::runtime_error("Not implemented");
+        return hash_table<tkey, tvalue>(
+            std::make_unique<collision_cuckoo_strategy<tkey, tvalue>>(
+            hash_provider_1,
+            hash_provider_2,
+            is_equals,
+            hash_size
+        ));
     }
 
 public:

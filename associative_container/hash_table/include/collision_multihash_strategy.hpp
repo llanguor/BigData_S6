@@ -172,14 +172,19 @@ private:
 
                 auto new_index = collision_strategy_concrete<tkey, tvalue>::get_remainder(hash);
 
+
                 if (_bits[new_index]== std::nullopt)
                 {
-                    _bits[new_index] = std::move(old_bit);
+                    //can't do std::move because if an error occurs the original
+                    //image of 'old_bits' will be changed. We can't restore it
+                    //if 'else' block (repeated hash_reorder)
+                    _bits[new_index] = old_bit;
                     break;
                 }
                 else if (hash_provider_index==_hash_providers.size()-1)
                 {
                     _bits = std::move(old_bits);
+                    increase_degree();
                     hashes_reorder();
                 }
             }

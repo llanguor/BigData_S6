@@ -40,3 +40,10 @@ target_link_libraries(
         PRIVATE
         hash_table
 )
+
+add_executable(Hash_Table_Cuckoo main_hash_table_cuckoo.cpp)
+target_link_libraries(
+        Hash_Table_Cuckoo
+        PRIVATE
+        hash_table
+)
